@@ -66,9 +66,23 @@ namespace fsm
    }
 
    template <typename ST, typename EVT, typename CTX>
+   Where<ST, EVT, CTX> & TransitionBuilder<ST, EVT, CTX>::where(bool (*f)(const CTX&))
+   {
+      _trans.condition = Condition<CTX>(f);
+      return *this;
+   }
+
+   template <typename ST, typename EVT, typename CTX>
    void TransitionBuilder<ST, EVT, CTX>::execute(Action<ST, EVT, CTX> a)
    {
       _trans.action = a;
+      delete this;
+   }
+
+   template <typename ST, typename EVT, typename CTX>
+   void TransitionBuilder<ST, EVT, CTX>::execute(void (*f)(const ST &, const EVT &, CTX &))
+   {
+      _trans.action = Action<ST, EVT, CTX>(f);
       delete this;
    }
 

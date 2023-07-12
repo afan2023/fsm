@@ -36,8 +36,8 @@ namespace fsm
 {
 
    template <typename ST, typename EVT, typename CTX>
-   StateMachine<ST, EVT, CTX>::StateMachine(StateMachineModel<ST, EVT, CTX> &model, CTX &ctx)
-       : _model(model), _context(ctx), _started(false)//, _state(_initState) 
+   StateMachine<ST, EVT, CTX>::StateMachine(StateMachineModel<ST, EVT, CTX>& model, CTX& ctx)
+       : _model(model), _context(ctx), _started(false)
        {}
 
    template <typename ST, typename EVT, typename CTX>

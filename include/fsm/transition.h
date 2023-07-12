@@ -27,7 +27,7 @@
 // CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,    //
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE    //
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             //
-////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////
 
 #include "fsm/condition.h"
 #include "fsm/action.h"
@@ -38,26 +38,31 @@
 namespace fsm
 {
 
-template<typename ST, typename EVT, typename CTX>
-class Transition
-{
-public:
-    ST from;
-    ST to;
-    EVT event;
-    Condition<CTX> condition;
-    Action<ST,EVT,CTX> action;
-    static Transition NULL_TRANSITION;
-public:
-    Transition();
+    template <typename ST, typename EVT, typename CTX>
+    class Transition
+    {
+    public:
+        ST from;
+        ST to;
+        EVT event;
+        Condition<CTX> condition;
+        Action<ST, EVT, CTX> action;
+
+    public:
+        Transition();
+        /**
+         * try to transit
+         * @return - the new state after the transition execution
+         */
+        ST &doTransit(const ST &, const EVT &, CTX &c);
+    }; // class Transition
+
     /**
-     * try to transit
-     * @return - the new state after the transition execution
-     */
-    ST& doTransit(const ST&, const EVT&, CTX& c);
-}; //class Transition
+     * Null transition does nothing and won't change state
+    */
+    template <typename ST, typename EVT, typename CTX>
+    Transition<ST, EVT, CTX> NULL_TRANSITION;
 
-}//namespace fsm
+} // namespace fsm
 
-#endif //#ifndef FSM_TRANSITION_H
-
+#endif // #ifndef FSM_TRANSITION_H

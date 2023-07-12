@@ -51,6 +51,7 @@ namespace fsm
        * @param act - the action to execute
        */
       virtual void execute(Action<ST, EVT, CTX> act) = 0;
+      virtual void execute(void (*f)(const ST &s, const EVT &e, CTX &c)) = 0;
    };
 
    template <typename ST, typename EVT, typename CTX>
@@ -62,6 +63,7 @@ namespace fsm
        * @param cond - the condition
        */
       virtual Where<ST, EVT, CTX> &where(Condition<CTX> cond) = 0;
+      virtual Where<ST, EVT, CTX> &where(bool (*f)(const CTX &)) = 0;
    };
 
    template <typename ST, typename EVT, typename CTX>

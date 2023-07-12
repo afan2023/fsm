@@ -53,16 +53,16 @@ namespace fsm
         /**
          * context where the state machine is in
          */
-        CTX &_context;
+        CTX& _context;
         /**
          * model
          */
-        StateMachineModel<ST, EVT, CTX> &_model;
+        StateMachineModel<ST, EVT, CTX>& _model;
 
     public:
-        StateMachine(StateMachineModel<ST, EVT, CTX> &model, CTX &ctx);
+        StateMachine(StateMachineModel<ST, EVT, CTX>& model, CTX& ctx);
 
-        virtual ST &currentState();
+        virtual ST& currentState();
 
         virtual void onEvent(const EVT& event);
 

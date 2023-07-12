@@ -50,11 +50,6 @@ namespace fsm
 
    public:
       /**
-       * @brief NULL ACTION does nothing
-       */
-      static Action NULL_ACTION;
-
-      /**
        * @brief default constructor
        */
       Action() : _fn(nullptr){};
@@ -86,8 +81,11 @@ namespace fsm
       }
    };
 
+   /**
+    * @brief NULL Action does nothing
+   */
    template <typename ST, typename EVT, typename CTX>
-   Action<ST, EVT, CTX> Action<ST, EVT, CTX>::NULL_ACTION; // = Action<ST,EVT,CTX>();
+   Action<ST, EVT, CTX> NULL_ACTION;
 
 } // namespace fsm
 

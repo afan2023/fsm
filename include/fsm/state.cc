@@ -45,7 +45,7 @@ namespace fsm
             return _transitions[event];
         }
 
-        return Transition<ST, EVT, CTX>::NULL_TRANSITION;
+        return NULL_TRANSITION<ST, EVT, CTX>;
     }
 
     template <typename ST, typename EVT, typename CTX>

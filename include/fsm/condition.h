@@ -46,6 +46,7 @@ namespace fsm
        * constructor
        */
       Condition() : _checkFn(nullptr){};
+
       /**
        * construct from a check function
        */
@@ -62,22 +63,21 @@ namespace fsm
          else
             return _checkFn(ctx);
       }
-      /**
-       * @brief null condition (i.e. pass without check)
-       */
-      static Condition NULL_CONDITION;
-      /**
-       * @brief False condition (i.e. always not satisfied)
-       */
-      static Condition FALSE_CONDITION;
+
    }; // class Condition
 
+   /**
+    * @brief null condition (i.e. always pass, without check)
+    */
    template <typename CTX>
-   Condition<CTX> Condition<CTX>::NULL_CONDITION;
+   static Condition<CTX> NULL_CONDITION;
 
+   /**
+    * @brief False condition (i.e. always not satisfied)
+    */
    template <typename CTX>
-   Condition<CTX> Condition<CTX>::FALSE_CONDITION = Condition<CTX>([](const CTX &c)
-                                                                   { return false; });
+   static Condition<CTX> FALSE_CONDITION = Condition<CTX>([](const CTX &c)
+                                                          { return false; });
 
 } // namespace fsm
 #endif // #ifndef FSM_CONDITION_H

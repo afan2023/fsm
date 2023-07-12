@@ -41,13 +41,11 @@ int tryStateMachine()
 
    StateMachineModel<STATE_ENUM, EVENT_ENUM, TestContext> model;
    cout << "Let's start construction......" << endl;
-   Action<STATE_ENUM, EVENT_ENUM, TestContext> act1 = Action<STATE_ENUM, EVENT_ENUM, TestContext>::NULL_ACTION;
    auto fn1 = [](const STATE_ENUM &s, const EVENT_ENUM &e, TestContext &c)
    {
       c.data += ST1 + ST2;
       c.info = "we're transiting from ST1 to ST2 on EVT1";
    };
-   Action<STATE_ENUM, EVENT_ENUM, TestContext> act2 = Action<STATE_ENUM, EVENT_ENUM, TestContext>::NULL_ACTION;
    auto acten1 = [](const STATE_ENUM &s, TestContext &c)
    {
       std::cout << "I'm entering ST1" << std::endl;
@@ -58,19 +56,17 @@ int tryStateMachine()
        .from(ST1)
        .to(ST2)
        .on(EVT1)
-       .where(Condition<TestContext>(testConditionFunc))
+       .where(testConditionFunc)
        .execute(Action<STATE_ENUM, EVENT_ENUM, TestContext>(fn1));
    model.addTransition()
        .from(ST2)
        .to(ST1)
        .on(EVT2)
-       .where(Condition<TestContext>::NULL_CONDITION)
-       .execute(Action<STATE_ENUM, EVENT_ENUM, TestContext>(
-           [](const STATE_ENUM &s, const EVENT_ENUM &e, TestContext &c)
-           {
+       .where(NULL_CONDITION<TestContext>)
+       .execute([](const STATE_ENUM &s, const EVENT_ENUM &e, TestContext &c){
               c.data += e;
               c.info = "transited from ST2 to ST1";
-           }));
+           });
    cout << "add entry and exit states..." << endl;
    model.withEntryActionOnState(ST1, acten1)
        .withEntryActionOnState(ST2, nullptr)

@@ -27,15 +27,15 @@
 // CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,    //
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE    //
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.             //
-////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////
 
 #include "fsm/transition.h"
 
 namespace fsm
 {
     template <typename ST, typename EVT, typename CTX>
-    Transition<ST, EVT, CTX>::Transition() : condition(Condition<CTX>::FALSE_CONDITION),
-                                             action(Action<ST, EVT, CTX>::NULL_ACTION)
+    Transition<ST, EVT, CTX>::Transition() : condition(FALSE_CONDITION<CTX>),
+                                             action(NULL_ACTION<ST, EVT, CTX>)
     {}
 
     template <typename ST, typename EVT, typename CTX>
@@ -44,8 +44,4 @@ namespace fsm
         this->action(s, e, c);
         return this->to;
     }
-
-    template <typename ST, typename EVT, typename CTX>
-    Transition<ST, EVT, CTX> Transition<ST, EVT, CTX>::NULL_TRANSITION;
-
 } // namespace fsm

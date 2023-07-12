@@ -50,7 +50,9 @@ namespace fsm
         virtual To<ST, EVT, CTX> &to(ST state);
         virtual On<ST, EVT, CTX> &on(EVT event);
         virtual Where<ST, EVT, CTX> &where(Condition<CTX> cond);
+        virtual Where<ST, EVT, CTX> &where(bool (*f)(const CTX&));
         virtual void execute(Action<ST, EVT, CTX> act);
+        virtual void execute(void (*f)(const ST&, const EVT&, CTX&));
 
     private:
         Transition<ST, EVT, CTX> &_trans;
